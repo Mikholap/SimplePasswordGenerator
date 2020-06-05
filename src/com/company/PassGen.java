@@ -75,7 +75,7 @@ public class PassGen {
         Random random = new Random(System.nanoTime());
 
         List<String> symbolTypes = new ArrayList<String>(4);
-        //ArrayList<String> symbolTypes = new ArrayList<String>(4);
+
         if (useLow) {
             symbolTypes.add(LOW);
         }
