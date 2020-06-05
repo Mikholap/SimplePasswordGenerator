@@ -1,5 +1,6 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PassGen {
@@ -68,13 +69,13 @@ public class PassGen {
 
     public String generate(int length) {
         if (length <= 0) {
-            System.out.println("Incorrect password length");
             return "";
         }
         StringBuilder password = new StringBuilder(length);
         Random random = new Random(System.nanoTime());
 
-        ArrayList<String> symbolTypes = new ArrayList<String>(4);
+        List<String> symbolTypes = new ArrayList<String>(4);
+        //ArrayList<String> symbolTypes = new ArrayList<String>(4);
         if (useLow) {
             symbolTypes.add(LOW);
         }
@@ -82,9 +83,6 @@ public class PassGen {
             symbolTypes.add(UPP);
         }
 
-        //password starts with char only
-        String symbolType = symbolTypes.get(random.nextInt(symbolTypes.size()));
-        password.append(symbolType.charAt(0));
 
         if (useNumbers) {
             symbolTypes.add(NUMBERS);
@@ -94,13 +92,15 @@ public class PassGen {
         }
 
 
-        //password continues with all requirement chars
-        for (int i = 1; i < length; i++) {
-            symbolType = symbolTypes.get(random.nextInt(symbolTypes.size()));
-            int position = random.nextInt(symbolType.length());
-            password.append(symbolType.charAt(position));
-        }
+        if (!symbolTypes.isEmpty()){
+            for (int i = 0; i < length; i++) {
+                String symbolType = symbolTypes.get(random.nextInt(symbolTypes.size()));
+                int position = random.nextInt(symbolType.length());
+                password.append(symbolType.charAt(position));
+            }
 
-        return new String(password);
+            return new String(password);
+        }else return "";
+
     }
 }
